@@ -1,0 +1,9 @@
+# https://github.com/rust-lang-nursery/mdBook/blob/master/book-example/src/format/config.md
+
+[book]
+authors = ["tatsuya@hibaridb.org"]
+multilingual = false
+src = "src"
+
+[build]
+build-dir = "../doc"

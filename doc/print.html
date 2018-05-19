@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme;
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            document.querySelector('html').classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="index.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="goals.html"><strong aria-hidden="true">2.</strong> サービスを利用する目的</a></li><li><a href="slack/index.html"><strong aria-hidden="true">3.</strong> Slack利用ガイド</a></li><li><a href="zulip/index.html"><strong aria-hidden="true">4.</strong> Zulip利用ガイド</a></li><li><ol class="section"><li><a href="zulip/tutorial.html"><strong aria-hidden="true">4.1.</strong> Zulipはじめの一歩</a></li><li><a href="zulip/streams.html"><strong aria-hidden="true">4.2.</strong> ストリーム</a></li></ol></li><li><a href="migration/index.html"><strong aria-hidden="true">5.</strong> 移行プラン</a></li><li><ol class="section"><li><a href="migration/steps.html"><strong aria-hidden="true">5.1.</strong> 移行ステップ</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="submenu">
+                                <li><button class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li><button class="theme" id="rust">Rust</button></li>
+                                <li><button class="theme" id="coal">Coal</button></li>
+                                <li><button class="theme" id="navy">Navy</button></li>
+                                <li><button class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                        </div>
+
+                        <h1 class="menu-title"></h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="print.html#はじめに" id="はじめに"><h1>はじめに</h1></a>
+<p>この文書ではRustの日本語コミュニティが利用するSlackやZulipなどのチャット基盤について以下のことを説明します。</p>
+<ul>
+<li>チャット基盤の目的</li>
+<li>行動規範</li>
+<li>Slackの利用ガイド（チャネルの一覧など）</li>
+<li>Zulipの利用ガイド（ストリームの一覧やトピック命名の指針など）</li>
+<li>SlackからZulipへの移行の目的と段取り</li>
+</ul>
+<!-- [Rust行動規範](https://www.rust-lang.org/ja-JP/conduct.html) -->
+<a class="header" href="print.html#チャット基盤の目的" id="チャット基盤の目的"><h1>チャット基盤の目的</h1></a>
+<p><strong>TODO</strong></p>
+<!-- 
+```
+I am a member of rust-lang-jp, a community for Rust programming
+language especially for Japanese speakers. I am wondering if our
+community is eligible for free premium plan described below:
+<p>https://zulipchat.com/plans/</p>
+<blockquote>
+<p>Do you have special plans for open source projects, non-profits,
+groups of friends, and other non-commercial entities?</p>
+<p>Yes! Zulip Cloud Premium is free for open source projects and a wide
+variety of non-commercial entities. We also often offer steep
+discounts to educational institutions, and in other scenarios where
+users are not being paid a salary. Just contact sales@zulipchat.com
+and we’d be happy to discuss your situation!</p>
+</blockquote>
+<p>Let me explain a bit about our community:</p>
+<ul>
+<li>It is a place for Rust users who speak Japanese to share news/ideas
+and help each other</li>
+<li>Anybody who is interested in Rust can join</li>
+<li>There is no membership fee to be paid</li>
+<li>Japanese is the primary spoken language, but English (and other
+languages) are allowed to help non-fluent Japanese speakers to
+communicate</li>
+<li>We volunteer to translate official/unofficial English Rust documents
+into Japanese. We have a GitHub organization for translation work:
+https://github.com/rust-lang-ja/ (and you will see I (tatsuya6502)
+am a member)</li>
+<li>Some members are actively developing open source products written in
+Rust</li>
+<li>Currently we are using Slack free plan, but we are looking for an
+alternative service mainly because:
+<ul>
+<li>Message search is limited to recent 10K messages</li>
+<li>Poor message thread (topic) support</li>
+</ul>
+</li>
+<li>There are about 550 members in the Slack team, and about 100 of them
+are active</li>
+</ul>
+<pre><code>--&gt;
+</code></pre>
+<a class="header" href="print.html#slack利用ガイド" id="slack利用ガイド"><h1>Slack利用ガイド</h1></a>
+<p><strong>TODO</strong></p>
+<p>登録ページ：<a href="http://rust-jp.herokuapp.com/">http://rust-jp.herokuapp.com/</a></p>
+<a class="header" href="print.html#zulip利用ガイド" id="zulip利用ガイド"><h1>Zulip利用ガイド</h1></a>
+<p><code>rust-lang-ja</code>では2018年5月より、Slackに代わるチャット基盤として、Zulip（ズゥリップ）を試験的に運用しています。
+Zulip CloudのPremiumサービスを無償でご提供いただいています。</p>
+<p><strong>Premiumサービスの内容</strong></p>
+<p><strong>TODO</strong>（検索と閲覧できるメッセージ数に上限がない、など）</p>
+<a class="header" href="print.html#zulipとは" id="zulipとは"><h2>Zulipとは？</h2></a>
+<p>ZulipはDropboxが2015年9月にオープンソース化したチャット基盤で、ソフトウェアの開発チーム向けに最適化されているのが特徴です。
+Dropbox内部では当時すでに社内コミュニケーションツールをIRCからZulipに移行しており、700人が技術的な質問や回答、アドバイスなどに利用していました（<a href="https://mag.osdn.jp/15/09/29/151300">出典1</a>, <a href="https://blogs.dropbox.com/tech/2015/09/open-sourcing-zulip-a-dropbox-hack-week-project/">2</a>）</p>
+<p>2018年の現在、Zulipのコア開発者たちは、Zulip Cloudやオンプレミス運用の商用サポートを提供するKandra Labsに所属し、フルタイムでZulipの開発にあたっています。</p>
+<a class="header" href="print.html#zulipの特徴" id="zulipの特徴"><h2>Zulipの特徴</h2></a>
+<p>Zulipには以下のような特徴があります。</p>
+<ul>
+<li>メッセージにトピックをつけ、グループでの会話をスレッド化することで、会話のフォローや参加が容易となる</li>
+<li>ストリームやトピックによるフィルタリングが可能で、全文検索機能も備える</li>
+<li>シンタックスハイライトやMarkdownのサポートなど、ソフトウェアの開発者にとって嬉しい機能が充実している</li>
+</ul>
+<p>Slackにも類似の機能がありますが、たとえばSlackのスレッドは使いやすいとはいえません。
+またシンタックスハイライトやマークアップ言語のサポートも貧弱です。</p>
+<p>一方で現時点ではSlackよりも劣っている点もあります</p>
+<ul>
+<li>インテグレーション（外部サービス連携アプリ）が貧弱</li>
+<li>モバイル版のアプリの成熟度が低い</li>
+<li>当コミュニティーでは滅多に使われないが、Postというオンラインで編集できる簡易ドキュメントがある</li>
+</ul>
+<p>Zulipの開発は活発に行われており、これらの課題のいくつかは時間とともに解決されると予測しています。</p>
+<p>ZulipとSlackのより詳しい比較は <a href="../migration/index.html#%E7%A7%BB%E8%A1%8C%E3%81%AE%E7%9B%AE%E7%9A%84">移行プラン - 移行の目的</a> で行います。</p>
+<a class="header" href="print.html#用語について" id="用語について"><h2>用語について</h2></a>
+<p>SlackとZulipでは使われている用語が若干異なります。
+主なものを以下に示します。</p>
+<table><thead><tr><th align="left"> Slack </th><th align="left"> Zulip </th><th align="left"> 補足 </th></tr></thead><tbody>
+<tr><td align="left"> チーム </td><td align="left"> Org./組織 </td><td align="left"> </td></tr>
+<tr><td align="left"> チャネル </td><td align="left"> ストリーム </td><td align="left"> </td></tr>
+<tr><td align="left"> スレッド </td><td align="left"> トピック </td><td align="left"> </td></tr>
+</tbody></table>
+<a class="header" href="print.html#zulipはじめの一歩" id="zulipはじめの一歩"><h1>Zulipはじめの一歩</h1></a>
+<p><strong>TODO</strong></p>
+<a class="header" href="print.html#ユーザー登録" id="ユーザー登録"><h2>ユーザー登録</h2></a>
+<ul>
+<li><a href="https://rust-lang-jp.zulipchat.com/">https://rust-lang-jp.zulipchat.com/</a></li>
+</ul>
+<p><strong>TODO</strong></p>
+<a class="header" href="print.html#zulipストリーム" id="zulipストリーム"><h1>Zulipストリーム</h1></a>
+<p><code>rust-lang-jp</code>に用意されているストリームを紹介します。</p>
+<p>なお当コミュニティではストリームは <strong>誰でも自由に作成してよい</strong> ものとします。</p>
+<a class="header" href="print.html#デフォルトストリーム" id="デフォルトストリーム"><h2>デフォルトストリーム</h2></a>
+<p>以下のストリームはアカウント作成時に自動的に購読されます。</p>
+<p>なお外部公開がyesのストリームに投稿されたメッセージは、オープンな記録・資産として役立てるために、将来は外部（インターネット）に公開する予定です。</p>
+<table><thead><tr><th align="left"> ストリーム </th><th align="center"> 外部公開 </th><th align="left"> 用途 </th><th align="left"> 補足 </th></tr></thead><tbody>
+<tr><td align="left"> <code>new members</code> </td><td align="center"> no </td><td align="left"> 自己紹介など </td><td align="left"> このストリームはorg.作成時に自動的に作られたので、そのまま使ってみる</td></tr>
+<tr><td align="left"> <code>announce</code> </td><td align="center"> <strong>yes</strong> </td><td align="left"> 告知用ストリーム </td><td align="left"> こんなクレート作ったとか、なんでもOK </td></tr>
+<tr><td align="left"> <code>beginners</code> </td><td align="center"> <strong>yes</strong> </td><td align="left"> 初心者の質問や情報交換 </td><td align="left"> こんな初歩的な質問するのは恥ずかしい、迷惑では、という気持ちを持たなくてよい場所 </td></tr>
+<tr><td align="left"> <code>questions</code> </td><td align="center"> <strong>yes</strong> </td><td align="left"> 技術的な質問をメインにするストリーム </td><td align="left"> Slack（rust-jpチーム）のcodeチャネルに相当 </td></tr>
+<tr><td align="left"> <code>tech talks</code> </td><td align="center"> <strong>yes</strong> </td><td align="left"> 特定の機能や技術について話す雑談ストリーム </td><td align="left"> </td></tr>
+<tr><td align="left"> <code>learning</code> </td><td align="center"> <strong>yes</strong> </td><td align="left"> Rustの学習に役立つ書籍とかblogとかの紹介 </td><td align="left"> </td></tr>
+<tr><td align="left"> <code>random</code> </td><td align="center"> no </td><td align="left"> その他なんでもありの雑談ストリーム </td><td align="left"> 宣伝以外ならRustと関係なくてもOK </td></tr>
+<tr><td align="left"> <code>local communities</code> </td><td align="center"> no </td><td align="left"> 各地のコミュニティの紹介・連絡 </td><td align="left"> </td></tr>
+<tr><td align="left"> <code>mokumoku</code> </td><td align="center"> no </td><td align="left"> もくもく会 </td><td align="left"> 一人もくもく会も歓迎 </td></tr>
+<tr><td align="left"> <code>sandbox</code>  </td><td align="center"> no </td><td align="left"> Zulipの機能や使い方を自由に試す場所 </td><td align="left"> </td></tr>
+<tr><td align="left"> <code>zulip</code>  </td><td align="center"> no </td><td align="left"> Zulipに対する要望や不具合報告など </td><td align="left"> このストリームはorg.作成時に自動的に作られたので、そのまま使ってみる </td></tr>
+</tbody></table>
+<a class="header" href="print.html#その他のストリーム" id="その他のストリーム"><h2>その他のストリーム</h2></a>
+<p>以下のストリームは自動購読されません。興味のある人は誰でも参加できます。</p>
+<table><thead><tr><th> ストリーム </th><th> 外部公開 </th><th> 用途 </th><th> 補足 </th></tr></thead><tbody>
+<tr><td align="left"> <code>feed</code> </td><td align="center"> no </td><td align="left"> Rustに関するRSSフィードが流れてくるストリーム </td><td align="left"> 実験も兼ね当面はSlackと二重に持つ </td></tr>
+<tr><td align="left"> <code>wg/zulip migration</code> </td><td align="center"> no </td><td align="left">  zulipへの移行ワーキンググループ </td><td align="left"> グループといっても今のところ一人なので「公開独り言」みたいになりそう </td></tr>
+<tr><td align="left"> <code>watchdog/trpl1</code> </td><td align="center"> no </td><td align="left">  <a href="https://github.com/rust-lang-ja/the-rust-programming-language-ja">TRPL1 GitHubリポジトリ</a> に関する通知 </td><td align="left"> GitHub Issue/Commit、Circle CIなどからの通知 </td></tr>
+</tbody></table>
+<a class="header" href="print.html#プライベートストリーム" id="プライベートストリーム"><h2>プライベートストリーム</h2></a>
+<p>プライベートストリームは招待された人だけが参加・購読できます。もちろん外部公開もしません。その一部を以下に示します。</p>
+<table><thead><tr><th> ストリーム </th><th> 用途 </th><th> 補足 </th></tr></thead><tbody>
+<tr><td align="left"> <code>core-team</code> </td><td align="left"> 管理者用プライベートストリーム </td><td align="left"> org.作成時に自動的に作られたストリーム。新規メンバーの通知などが流れてくる（他にどんな通知がくるのかはまだ知らない） </td></tr>
+</tbody></table>
+<p>プライベートストリームはイベント開催者同士の連絡などに便利に使えるでしょう。</p>
+<a class="header" href="print.html#slackで引き続き使用するチャネル" id="slackで引き続き使用するチャネル"><h2>Slackで引き続き使用するチャネル</h2></a>
+<p>以下のSlackチャネルは現時点では移行せず、Slackでそのまま使い続けることにします。
+半年ほどZulipを使用して、よい感触が得られたらZulipへ移行するかもしれません。</p>
+<ul>
+<li><code>event</code></li>
+<li><code>general</code></li>
+<li><code>translation</code></li>
+</ul>
+<a class="header" href="print.html#移行プラン" id="移行プラン"><h1>移行プラン</h1></a>
+<p>ここでは、現行のSlackからZulipへ移行する理由と方法について説明します。</p>
+<ul>
+<li>現Slackチーム：<a href="https://rust-jp.slack.com">https://rust-jp.slack.com</a></li>
+<li>新Zulip Org：<a href="https://rust-lang-jp.zulipchat.com">https://rust-lang-jp.zulipchat.com</a></li>
+</ul>
+<a class="header" href="print.html#移行の目的" id="移行の目的"><h2>移行の目的</h2></a>
+<a class="header" href="print.html#zulipの良いところ" id="zulipの良いところ"><h3>Zulipの良いところ</h3></a>
+<ul>
+<li><strong>スレッドが使いやすい</strong>
+<ul>
+<li>複数のトピックが同時に進行する場面で会話を追いやすい
+<ul>
+<li>会話にキャッチアップしたり、過去ログを参照するときに特に便利</li>
+</ul>
+</li>
+<li>Slackのスレッドは使いやすいとはいえない</li>
+</ul>
+</li>
+<li><strong>過去ログを無制限に検索・閲覧できる</strong>
+<ul>
+<li>Slackの無料プランでは1万メッセージまでしか検索・閲覧できない</li>
+<li>Zulip Cloudの無料プランも同様の制限があるが、rust-lang-jpでは本来有料のPremiumプランを無料提供していただいており、検索・閲覧メッセージ数の制限はない</li>
+</ul>
+</li>
+<li><strong>過去ログをインターネット上のオープンな記録・資産として残せる</strong>
+<ul>
+<li>これは現在のZulipにない機能だが、一部のストリームは何らかの方法で外部に公開し、Googleなどのサーチエンジンから過去の会話（質問など）を見つけられるようにしたい</li>
+<li>Slackでは過去ログの外部保存はAPIの利用規約に違反するという意見もある。Slackのビジネスモデルとも競合する</li>
+<li>Zulip Cloudサービスについても規約等の確認が必要だが、Zulipのクリエイターたちは以下のような方針を取っているので問題にならない可能性が高い
+<ul>
+<li>オンプレミスでの利用を推進している（主に有償サポートなどで利益をあげている模様）</li>
+<li>Zulip Cloudサービスではrust-lang-jpのようなオープンソースプロジェクトや非営利のコミュニティを応援しており、Premiumプランを無料提供している</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>オープンソース</strong>
+<ul>
+<li>Zulipプロダクトはオープンソース
+<ul>
+<li>Apache 2.0ライセンス</li>
+<li>今後もオープンソースであり続けることを約束している</li>
+</ul>
+</li>
+<li>自由に改良できる</li>
+<li>Zulip Cloudからオンプレミスへの移行も可能（そのためのツールが用意されている）</li>
+</ul>
+</li>
+</ul>
+<a class="header" href="print.html#zulipの悪いところ課題" id="zulipの悪いところ課題"><h3>Zulipの悪いところ・課題</h3></a>
+<ul>
+<li><strong>スレッドが苦手・不要と感じる人も多い</strong>
+<ul>
+<li>トピックのせいで初めてZulipを使ったときに戸惑う人が多い。特に非エンジニアの方々？
+<ul>
+<li>→ Rustに興味を持つ人ならすぐ使いこなせるだろうと期待</li>
+</ul>
+</li>
+<li>トラディショナルなチャットを期待している人には余計な機能に感じられる
+<ul>
+<li>→ 慣れればそうでもないと思うが、その前に使うのをやめる人がいるのも事実</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>モバイル版アプリの成熟度が低い</strong></li>
+</ul>
+<a class="header" href="print.html#移行ステップ" id="移行ステップ"><h1>移行ステップ</h1></a>
+<p>現行のSlackからZulipへ移行するステップとして以下のようなものを予定しています。</p>
+<p>（重要度A〜C案件については、近日中にGitHub Issueかなにかに登録します）</p>
+<ol>
+<li>[<strong>DONE</strong>] <strong>Zulipにストリームを新設する</strong>
+<ul>
+<li><code>tech talks</code></li>
+<li><code>mokumoku</code></li>
+<li><code>local communities</code></li>
+<li><code>wg/zulip migration</code></li>
+</ul>
+</li>
+<li>[TODO] <strong>Zulip → Slack連携を設定する</strong>
+<ul>
+<li>Zulipの主要ストリームに新しいトピックが立ったらSlackへ通知</li>
+</ul>
+</li>
+<li>[TODO] <strong><code>feed</code>ストリームを追加し、RSSフィードを登録する</strong>（Slackと二重に持つ）</li>
+<li>[TODO] <strong>ここで、重要度A案件が解決するまで待つ？</strong>
+<ul>
+<li>常連メンバーがある程度揃うなら A案件の解決を待たなくてもいいかも</li>
+</ul>
+</li>
+<li>[TODO] <strong>一部のSlackチャネルをZulipストリームへ移行する</strong>（試験運用開始）
+<ul>
+<li><code>announce</code>（新規トピックが立ったらSlackの<code>announce</code>へ通知）</li>
+<li><code>beginners</code>（新規トピックが立ったらSlackの<code>beginners</code>へ通知）</li>
+<li><code>questions</code>（新規トピックが立ったらSlackの<code>code</code>へ通知）</li>
+</ul>
+</li>
+<li>[TODO] <strong>Slack側の<code>feed</code>を停止する</strong></li>
+<li>[TODO] <strong>半年ほど経ってから本運用の見極め</strong>
+<ul>
+<li>よい感触を得られたら本運用とし、Slackの残りのチャネルも移行する</li>
+<li>その頃までにはモバイルアプリが成熟するなどC案件まで片付いていてほしい</li>
+</ul>
+</li>
+</ol>
+<a class="header" href="print.html#アクションアイテム" id="アクションアイテム"><h2>アクションアイテム</h2></a>
+<p>移行に必要なアクションアイテムは現在のところ以下の通りです。（カッコ内は担当者）
+このドキュメントではアクションアイテムを更新しづらいので、近日中にGitHub Issueかなにかに登録します。</p>
+<ul>
+<li>(tatsuya6502) Zulip → Slack連携の方法を調査する</li>
+<li>(TBD) 必要ならZulip → Slack連携のしくみを開発する</li>
+<li>(TBD) Zulip → Slack連携を設定する</li>
+<li>(tatsuya6502) RSSフィード登録の方法を調査する</li>
+<li>(tatsuya6502) <code>feed</code>チャネルにRSSフィードを登録する</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '_FontAwesome/css/font-awesome.css';
+                document.head.insertBefore(link, document.head.firstChild)
+            }
+        </script>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                window.print();
+            })
+        </script>
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS script -->
+        
+
+    </body>
+</html>
