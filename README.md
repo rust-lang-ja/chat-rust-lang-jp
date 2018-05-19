@@ -22,8 +22,8 @@ $ cd doc-src
 $ mdbook build
 ```
 
-レンダリングされたドキュメントは`doc`ディレクトリへ出力されます。
-`master`ブランチをGitHubへpushすると、`doc`ディレクトリの内容がGitHubページで公開されます。
+レンダリングされたドキュメントは`docs`ディレクトリへ出力されます。
+`master`ブランチをGitHubへpushすると、`docs`ディレクトリの内容がGitHubページで公開されます。
 
 
 ## ドキュメントの編集
