@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" class="sidebar-visible no-js">
     <head>
+        <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>ストリーム - </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -17,24 +18,16 @@
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="_FontAwesome/css/font-awesome.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- Custom theme -->
+        <!-- Custom theme stylesheets -->
         
 
         
-
-        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
-        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
-        <script>
-            if (typeof Clipboard == 'undefined') {
-                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
-            }
-        </script>
 
     </head>
     <body class="light">
@@ -60,21 +53,23 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
             if (theme === null || theme === undefined) { theme = 'light'; }
             document.body.className = theme;
-            document.querySelector('html').className = theme;
+            document.querySelector('html').className = theme + ' js';
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
+            var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
-            document.querySelector('html').classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="index.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="goals.html"><strong aria-hidden="true">2.</strong> サービスを利用する目的</a></li><li><a href="slack/index.html"><strong aria-hidden="true">3.</strong> Slack利用ガイド</a></li><li><a href="zulip/index.html"><strong aria-hidden="true">4.</strong> Zulip利用ガイド</a></li><li><ol class="section"><li><a href="zulip/tutorial.html"><strong aria-hidden="true">4.1.</strong> Zulipはじめの一歩</a></li><li><a href="zulip/streams.html" class="active"><strong aria-hidden="true">4.2.</strong> ストリーム</a></li></ol></li><li><a href="migration/index.html"><strong aria-hidden="true">5.</strong> 移行プラン</a></li><li><ol class="section"><li><a href="migration/steps.html"><strong aria-hidden="true">5.1.</strong> 移行ステップ</a></li></ol></li></ol>
+            <ol class="chapter"><li><a href="index.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="goals.html"><strong aria-hidden="true">2.</strong> チャット基盤の目的</a></li><li><a href="slack/index.html"><strong aria-hidden="true">3.</strong> Slack利用ガイド</a></li><li><a href="zulip/index.html"><strong aria-hidden="true">4.</strong> Zulip利用ガイド</a></li><li><ol class="section"><li><a href="zulip/tutorial.html"><strong aria-hidden="true">4.1.</strong> Zulipはじめの一歩</a></li><li><a href="zulip/streams.html" class="active"><strong aria-hidden="true">4.2.</strong> ストリーム</a></li></ol></li><li><a href="migration/index.html"><strong aria-hidden="true">5.</strong> 移行プラン</a></li><li><ol class="section"><li><a href="migration/steps.html"><strong aria-hidden="true">5.1.</strong> 移行ステップ</a></li></ol></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -90,16 +85,21 @@
                             <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                                 <i class="fa fa-paint-brush"></i>
                             </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="submenu">
-                                <li><button class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li><button class="theme" id="rust">Rust</button></li>
-                                <li><button class="theme" id="coal">Coal</button></li>
-                                <li><button class="theme" id="navy">Navy</button></li>
-                                <li><button class="theme" id="ayu">Ayu</button></li>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                             </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
                         </div>
 
-                        <h1 class="menu-title"></h1>
+                        <h1 class="menu-title"></h1> 
 
                         <div class="right-buttons">
                             <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -108,6 +108,19 @@
                         </div>
                     </div>
                 </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
@@ -123,7 +136,7 @@
                         <a class="header" href="zulip/streams.html#zulipストリーム" id="zulipストリーム"><h1>Zulipストリーム</h1></a>
 <p><code>rust-lang-jp</code>に用意されているストリームを紹介します。</p>
 <p>なお当コミュニティではストリームは <strong>誰でも自由に作成してよい</strong> ものとします。</p>
-<a class="header" href="zulip/streams.html#デフォルトストリーム" id="デフォルトストリーム"><h2>デフォルトストリーム</h2></a>
+<a class="header" href="zulip/streams.html#aデフォルトストリーム" id="aデフォルトストリーム"><h2>デフォルトストリーム</h2></a>
 <p>以下のストリームはアカウント作成時に自動的に購読されます。</p>
 <p>なお外部公開がyesのストリームに投稿されたメッセージは、オープンな記録・資産として役立てるために、将来は外部（インターネット）に公開する予定です。</p>
 <table><thead><tr><th align="left"> ストリーム </th><th align="center"> 外部公開 </th><th align="left"> 用途 </th><th align="left"> 補足 </th></tr></thead><tbody>
@@ -139,14 +152,14 @@
 <tr><td align="left"> <code>sandbox</code>  </td><td align="center"> no </td><td align="left"> Zulipの機能や使い方を自由に試す場所 </td><td align="left"> </td></tr>
 <tr><td align="left"> <code>zulip</code>  </td><td align="center"> no </td><td align="left"> Zulipに対する要望や不具合報告など </td><td align="left"> このストリームはorg.作成時に自動的に作られたので、そのまま使ってみる </td></tr>
 </tbody></table>
-<a class="header" href="zulip/streams.html#その他のストリーム" id="その他のストリーム"><h2>その他のストリーム</h2></a>
+<a class="header" href="zulip/streams.html#aその他のストリーム" id="aその他のストリーム"><h2>その他のストリーム</h2></a>
 <p>以下のストリームは自動購読されません。興味のある人は誰でも参加できます。</p>
 <table><thead><tr><th> ストリーム </th><th> 外部公開 </th><th> 用途 </th><th> 補足 </th></tr></thead><tbody>
 <tr><td align="left"> <code>feed</code> </td><td align="center"> no </td><td align="left"> Rustに関するRSSフィードが流れてくるストリーム </td><td align="left"> 実験も兼ね当面はSlackと二重に持つ </td></tr>
 <tr><td align="left"> <code>wg/zulip migration</code> </td><td align="center"> no </td><td align="left">  zulipへの移行ワーキンググループ </td><td align="left"> グループといっても今のところ一人なので「公開独り言」みたいになりそう </td></tr>
 <tr><td align="left"> <code>watchdog/trpl1</code> </td><td align="center"> no </td><td align="left">  <a href="https://github.com/rust-lang-ja/the-rust-programming-language-ja">TRPL1 GitHubリポジトリ</a> に関する通知 </td><td align="left"> GitHub Issue/Commit、Circle CIなどからの通知 </td></tr>
 </tbody></table>
-<a class="header" href="zulip/streams.html#プライベートストリーム" id="プライベートストリーム"><h2>プライベートストリーム</h2></a>
+<a class="header" href="zulip/streams.html#aプライベートストリーム" id="aプライベートストリーム"><h2>プライベートストリーム</h2></a>
 <p>プライベートストリームは招待された人だけが参加・購読できます。もちろん外部公開もしません。その一部を以下に示します。</p>
 <table><thead><tr><th> ストリーム </th><th> 用途 </th><th> 補足 </th></tr></thead><tbody>
 <tr><td align="left"> <code>core-team</code> </td><td align="left"> 管理者用プライベートストリーム </td><td align="left"> org.作成時に自動的に作られたストリーム。新規メンバーの通知などが流れてくる（他にどんな通知がくるのかはまだ知らない） </td></tr>
@@ -198,18 +211,6 @@
 
         </div>
 
-
-        <!-- Local fallback for Font Awesome -->
-        <script>
-            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = '_FontAwesome/css/font-awesome.css';
-                document.head.insertBefore(link, document.head.firstChild)
-            }
-        </script>
-
         
         <!-- Livereload script (if served using the cli tool) -->
         <script type="text/javascript">
@@ -233,10 +234,20 @@
 
         
 
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
 
-        <!-- Custom JS script -->
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
         
 
     </body>

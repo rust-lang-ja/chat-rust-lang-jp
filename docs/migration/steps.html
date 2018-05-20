@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" class="sidebar-visible no-js">
     <head>
+        <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>移行ステップ - </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -17,24 +18,16 @@
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="_FontAwesome/css/font-awesome.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- Custom theme -->
+        <!-- Custom theme stylesheets -->
         
 
         
-
-        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
-        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
-        <script>
-            if (typeof Clipboard == 'undefined') {
-                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
-            }
-        </script>
 
     </head>
     <body class="light">
@@ -60,21 +53,23 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
             if (theme === null || theme === undefined) { theme = 'light'; }
             document.body.className = theme;
-            document.querySelector('html').className = theme;
+            document.querySelector('html').className = theme + ' js';
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
+            var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
-            document.querySelector('html').classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="index.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="goals.html"><strong aria-hidden="true">2.</strong> サービスを利用する目的</a></li><li><a href="slack/index.html"><strong aria-hidden="true">3.</strong> Slack利用ガイド</a></li><li><a href="zulip/index.html"><strong aria-hidden="true">4.</strong> Zulip利用ガイド</a></li><li><ol class="section"><li><a href="zulip/tutorial.html"><strong aria-hidden="true">4.1.</strong> Zulipはじめの一歩</a></li><li><a href="zulip/streams.html"><strong aria-hidden="true">4.2.</strong> ストリーム</a></li></ol></li><li><a href="migration/index.html"><strong aria-hidden="true">5.</strong> 移行プラン</a></li><li><ol class="section"><li><a href="migration/steps.html" class="active"><strong aria-hidden="true">5.1.</strong> 移行ステップ</a></li></ol></li></ol>
+            <ol class="chapter"><li><a href="index.html"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="goals.html"><strong aria-hidden="true">2.</strong> チャット基盤の目的</a></li><li><a href="slack/index.html"><strong aria-hidden="true">3.</strong> Slack利用ガイド</a></li><li><a href="zulip/index.html"><strong aria-hidden="true">4.</strong> Zulip利用ガイド</a></li><li><ol class="section"><li><a href="zulip/tutorial.html"><strong aria-hidden="true">4.1.</strong> Zulipはじめの一歩</a></li><li><a href="zulip/streams.html"><strong aria-hidden="true">4.2.</strong> ストリーム</a></li></ol></li><li><a href="migration/index.html"><strong aria-hidden="true">5.</strong> 移行プラン</a></li><li><ol class="section"><li><a href="migration/steps.html" class="active"><strong aria-hidden="true">5.1.</strong> 移行ステップ</a></li></ol></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -90,16 +85,21 @@
                             <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                                 <i class="fa fa-paint-brush"></i>
                             </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="submenu">
-                                <li><button class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li><button class="theme" id="rust">Rust</button></li>
-                                <li><button class="theme" id="coal">Coal</button></li>
-                                <li><button class="theme" id="navy">Navy</button></li>
-                                <li><button class="theme" id="ayu">Ayu</button></li>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                             </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
                         </div>
 
-                        <h1 class="menu-title"></h1>
+                        <h1 class="menu-title"></h1> 
 
                         <div class="right-buttons">
                             <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -108,6 +108,19 @@
                         </div>
                     </div>
                 </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
@@ -120,7 +133,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="migration/steps.html#移行ステップ" id="移行ステップ"><h1>移行ステップ</h1></a>
+                        <a class="header" href="migration/steps.html#a移行ステップ" id="a移行ステップ"><h1>移行ステップ</h1></a>
 <p>現行のSlackからZulipへ移行するステップとして以下のようなものを予定しています。</p>
 <p>（重要度A〜C案件については、近日中にGitHub Issueかなにかに登録します）</p>
 <ol>
@@ -137,7 +150,7 @@
 <li>Zulipの主要ストリームに新しいトピックが立ったらSlackへ通知</li>
 </ul>
 </li>
-<li>[TODO] <strong><code>feed</code>ストリームを追加し、RSSフィードを登録する</strong>（Slackと二重に持つ）</li>
+<li>[<strong>DONE</strong>] <strong><code>feed</code>ストリームを追加し、RSSフィードを登録する</strong>（Slackと二重に持つ）</li>
 <li>[TODO] <strong>ここで、重要度A案件が解決するまで待つ？</strong>
 <ul>
 <li>常連メンバーがある程度揃うなら A案件の解決を待たなくてもいいかも</li>
@@ -158,15 +171,15 @@
 </ul>
 </li>
 </ol>
-<a class="header" href="migration/steps.html#アクションアイテム" id="アクションアイテム"><h2>アクションアイテム</h2></a>
+<a class="header" href="migration/steps.html#aアクションアイテム" id="aアクションアイテム"><h2>アクションアイテム</h2></a>
 <p>移行に必要なアクションアイテムは現在のところ以下の通りです。（カッコ内は担当者）
 このドキュメントではアクションアイテムを更新しづらいので、近日中にGitHub Issueかなにかに登録します。</p>
 <ul>
 <li>(tatsuya6502) Zulip → Slack連携の方法を調査する</li>
 <li>(TBD) 必要ならZulip → Slack連携のしくみを開発する</li>
 <li>(TBD) Zulip → Slack連携を設定する</li>
-<li>(tatsuya6502) RSSフィード登録の方法を調査する</li>
-<li>(tatsuya6502) <code>feed</code>チャネルにRSSフィードを登録する</li>
+<li>(tatsuya6502) [<strong>DONE</strong>] RSSフィード登録の方法を調査する</li>
+<li>(tatsuya6502) [<strong>DONE</strong>] <code>feed</code>チャネルにRSSフィードを登録する</li>
 </ul>
 
                     </main>
@@ -198,18 +211,6 @@
 
         </div>
 
-
-        <!-- Local fallback for Font Awesome -->
-        <script>
-            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = '_FontAwesome/css/font-awesome.css';
-                document.head.insertBefore(link, document.head.firstChild)
-            }
-        </script>
-
         
         <!-- Livereload script (if served using the cli tool) -->
         <script type="text/javascript">
@@ -233,10 +234,20 @@
 
         
 
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
 
-        <!-- Custom JS script -->
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
         
 
     </body>

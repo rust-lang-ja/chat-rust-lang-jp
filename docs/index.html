@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" class="sidebar-visible no-js">
     <head>
+        <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>はじめに - </title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -16,24 +17,16 @@
         <link rel="shortcut icon" href="favicon.png">
 
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="_FontAwesome/css/font-awesome.css">
 
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
 
-        <!-- Custom theme -->
+        <!-- Custom theme stylesheets -->
         
 
         
-
-        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
-        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
-        <script>
-            if (typeof Clipboard == 'undefined') {
-                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
-            }
-        </script>
 
     </head>
     <body class="light">
@@ -59,21 +52,23 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
             if (theme === null || theme === undefined) { theme = 'light'; }
             document.body.className = theme;
-            document.querySelector('html').className = theme;
+            document.querySelector('html').className = theme + ' js';
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script type="text/javascript">
+            var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
-            document.querySelector('html').classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <ol class="chapter"><li><a href="index.html" class="active"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="goals.html"><strong aria-hidden="true">2.</strong> サービスを利用する目的</a></li><li><a href="slack/index.html"><strong aria-hidden="true">3.</strong> Slack利用ガイド</a></li><li><a href="zulip/index.html"><strong aria-hidden="true">4.</strong> Zulip利用ガイド</a></li><li><ol class="section"><li><a href="zulip/tutorial.html"><strong aria-hidden="true">4.1.</strong> Zulipはじめの一歩</a></li><li><a href="zulip/streams.html"><strong aria-hidden="true">4.2.</strong> ストリーム</a></li></ol></li><li><a href="migration/index.html"><strong aria-hidden="true">5.</strong> 移行プラン</a></li><li><ol class="section"><li><a href="migration/steps.html"><strong aria-hidden="true">5.1.</strong> 移行ステップ</a></li></ol></li></ol>
+            <ol class="chapter"><li><a href="index.html" class="active"><strong aria-hidden="true">1.</strong> はじめに</a></li><li><a href="goals.html"><strong aria-hidden="true">2.</strong> チャット基盤の目的</a></li><li><a href="slack/index.html"><strong aria-hidden="true">3.</strong> Slack利用ガイド</a></li><li><a href="zulip/index.html"><strong aria-hidden="true">4.</strong> Zulip利用ガイド</a></li><li><ol class="section"><li><a href="zulip/tutorial.html"><strong aria-hidden="true">4.1.</strong> Zulipはじめの一歩</a></li><li><a href="zulip/streams.html"><strong aria-hidden="true">4.2.</strong> ストリーム</a></li></ol></li><li><a href="migration/index.html"><strong aria-hidden="true">5.</strong> 移行プラン</a></li><li><ol class="section"><li><a href="migration/steps.html"><strong aria-hidden="true">5.1.</strong> 移行ステップ</a></li></ol></li></ol>
         </nav>
 
         <div id="page-wrapper" class="page-wrapper">
@@ -89,16 +84,21 @@
                             <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                                 <i class="fa fa-paint-brush"></i>
                             </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="submenu">
-                                <li><button class="theme" id="light">Light <span class="default">(default)</span></button></li>
-                                <li><button class="theme" id="rust">Rust</button></li>
-                                <li><button class="theme" id="coal">Coal</button></li>
-                                <li><button class="theme" id="navy">Navy</button></li>
-                                <li><button class="theme" id="ayu">Ayu</button></li>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                             </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
                         </div>
 
-                        <h1 class="menu-title"></h1>
+                        <h1 class="menu-title"></h1> 
 
                         <div class="right-buttons">
                             <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -107,6 +107,19 @@
                         </div>
                     </div>
                 </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
                 <script type="text/javascript">
@@ -119,7 +132,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <a class="header" href="index.html#はじめに" id="はじめに"><h1>はじめに</h1></a>
+                        <a class="header" href="index.html#aはじめに" id="aはじめに"><h1>はじめに</h1></a>
 <p>この文書ではRustの日本語コミュニティが利用するSlackやZulipなどのチャット基盤について以下のことを説明します。</p>
 <ul>
 <li>チャット基盤の目的</li>
@@ -129,6 +142,7 @@
 <li>SlackからZulipへの移行の目的と段取り</li>
 </ul>
 <!-- [Rust行動規範](https://www.rust-lang.org/ja-JP/conduct.html) -->
+<p>本書を生成するのに使われたソースは <a href="https://github.com/rust-lang-ja/chat-rust-lang-jp">こちら</a> から入手できます。</p>
 
                     </main>
 
@@ -159,18 +173,6 @@
 
         </div>
 
-
-        <!-- Local fallback for Font Awesome -->
-        <script>
-            if (getComputedStyle(document.querySelector(".fa")).fontFamily !== "FontAwesome") {
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = '_FontAwesome/css/font-awesome.css';
-                document.head.insertBefore(link, document.head.firstChild)
-            }
-        </script>
-
         
         <!-- Livereload script (if served using the cli tool) -->
         <script type="text/javascript">
@@ -194,10 +196,20 @@
 
         
 
-        <script src="highlight.js"></script>
-        <script src="book.js"></script>
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
 
-        <!-- Custom JS script -->
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
         
 
     </body>
