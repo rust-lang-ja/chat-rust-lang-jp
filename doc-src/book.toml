@@ -6,4 +6,4 @@ multilingual = false
 src = "src"
 
 [build]
-build-dir = "../doc"
+build-dir = "../docs"
