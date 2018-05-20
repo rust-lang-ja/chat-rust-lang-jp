@@ -9,3 +9,5 @@
 - SlackからZulipへの移行の目的と段取り
 
 <!-- [Rust行動規範](https://www.rust-lang.org/ja-JP/conduct.html) -->
+
+本書を生成するのに使われたソースは [こちら](https://github.com/rust-lang-ja/chat-rust-lang-jp) から入手できます。
