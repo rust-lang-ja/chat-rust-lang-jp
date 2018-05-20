@@ -9,7 +9,7 @@
 Rustツールチェイン（stable）がインストールされた環境でmdbookをインストールします。
 
 ```console
-$ cargo install mdbook --vers 0.1.2 --force
+$ cargo install mdbook --vers 0.1.7 --force
 ```
 
 
