@@ -11,7 +11,7 @@
    - `wg/zulip migration`
 1. [TODO] **Zulip → Slack連携を設定する**
    - Zulipの主要ストリームに新しいトピックが立ったらSlackへ通知
-1. [TODO] **`feed`ストリームを追加し、RSSフィードを登録する**（Slackと二重に持つ）
+1. [**DONE**] **`feed`ストリームを追加し、RSSフィードを登録する**（Slackと二重に持つ）
 1. [TODO] **ここで、重要度A案件が解決するまで待つ？**
    - 常連メンバーがある程度揃うなら A案件の解決を待たなくてもいいかも
 1. [TODO] **一部のSlackチャネルをZulipストリームへ移行する**（試験運用開始）
@@ -32,5 +32,5 @@
 - (tatsuya6502) Zulip → Slack連携の方法を調査する
 - (TBD) 必要ならZulip → Slack連携のしくみを開発する
 - (TBD) Zulip → Slack連携を設定する
-- (tatsuya6502) RSSフィード登録の方法を調査する
-- (tatsuya6502) `feed`チャネルにRSSフィードを登録する
+- (tatsuya6502) [**DONE**] RSSフィード登録の方法を調査する
+- (tatsuya6502) [**DONE**] `feed`チャネルにRSSフィードを登録する
